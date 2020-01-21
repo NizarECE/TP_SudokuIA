@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Benchmark",
+    "\\NoyauTP",
+    "\\SudukoSolver_ORTools"
   ],
+  "SelectedNode": "\\TP_SudokuIA.sln",
   "PreviewInSolutionExplorer": false
 }
