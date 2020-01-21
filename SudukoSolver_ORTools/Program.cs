@@ -9,6 +9,7 @@ namespace SudukoSolver_ORTools
         {
             var s = new Sudoku();
             s.showSudoku();
+            Console.Write("Le sudoku a été généré");
             Console.Read();
         }
     }
