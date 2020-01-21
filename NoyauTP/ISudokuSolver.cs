@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NoyauTP
 {
-    interface ISudokuSolver
+    public interface ISudokuSolver
     {
         Sudoku Solve(Sudoku s);
 

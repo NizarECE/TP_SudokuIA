@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoyauTP", "NoyauTP\NoyauTP.csproj", "{12989ACD-02FB-42D4-937E-50C7B0984965}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoyauTP", "NoyauTP\NoyauTP.csproj", "{12989ACD-02FB-42D4-937E-50C7B0984965}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "Benchmark\Benchmark.csproj", "{FE5242DE-5EF7-4AE2-950B-AC85BFAAE91B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benchmark", "Benchmark\Benchmark.csproj", "{FE5242DE-5EF7-4AE2-950B-AC85BFAAE91B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Norvig_method", "Norvig_method\Norvig_method.csproj", "{589C3DBD-F36F-43EF-AC3B-2E60BBAB5955}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{FE5242DE-5EF7-4AE2-950B-AC85BFAAE91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE5242DE-5EF7-4AE2-950B-AC85BFAAE91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE5242DE-5EF7-4AE2-950B-AC85BFAAE91B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{589C3DBD-F36F-43EF-AC3B-2E60BBAB5955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{589C3DBD-F36F-43EF-AC3B-2E60BBAB5955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{589C3DBD-F36F-43EF-AC3B-2E60BBAB5955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{589C3DBD-F36F-43EF-AC3B-2E60BBAB5955}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
