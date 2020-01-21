@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoyauTP", "NoyauTP\NoyauTP.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "Benchmark\Benchmark.csproj", "{FE5242DE-5EF7-4AE2-950B-AC85BFAAE91B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolverZ3", "SolverZ3\SolverZ3.csproj", "{71FEAC9A-15E3-49BD-A58D-E9EA4CB69C9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FE5242DE-5EF7-4AE2-950B-AC85BFAAE91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE5242DE-5EF7-4AE2-950B-AC85BFAAE91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE5242DE-5EF7-4AE2-950B-AC85BFAAE91B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71FEAC9A-15E3-49BD-A58D-E9EA4CB69C9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71FEAC9A-15E3-49BD-A58D-E9EA4CB69C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71FEAC9A-15E3-49BD-A58D-E9EA4CB69C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71FEAC9A-15E3-49BD-A58D-E9EA4CB69C9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
