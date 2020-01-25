@@ -1,4 +1,5 @@
 ﻿using System;
+using NoyauTP;
 
 namespace SatisfactionContraintesUniverselles
 {
@@ -6,7 +7,16 @@ namespace SatisfactionContraintesUniverselles
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var s = new Sudoku();
+
+            s.newEasySudoku(0);
+            var solveur = new SolveurSCU();
+            var solution = solveur.Solve(s);
+            solution.showSudoku();
+            Console.Read();
         }
     }
+
+
 }
+
