@@ -11,5 +11,45 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="IKVM" Version="8.1.5717" />
+    <PackageReference Include="Java" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="aima-core">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\AIMA\aima-core.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.AWT.WinForms">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.AWT.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Beans">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.OpenJDK.Beans.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Core">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.OpenJDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Media">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.OpenJDK.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Misc">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.OpenJDK.Misc.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Security">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.OpenJDK.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.SwingAWT">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.OpenJDK.SwingAWT.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Text">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.OpenJDK.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Util">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.OpenJDK.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.API">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.OpenJDK.XML.API.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime">
+      <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.Runtime.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

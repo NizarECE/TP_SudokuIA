@@ -1,6 +1,7 @@
 ﻿using System;
 using NoyauTP;
 
+
 namespace SatisfactionContraintesUniverselles
 {
     class Program
@@ -12,6 +13,7 @@ namespace SatisfactionContraintesUniverselles
             s.newEasySudoku(0);
             var solveur = new SolveurSCU();
             var solution = solveur.Solve(s);
+            SudokuCSP essai = new SudokuCSP();
             solution.showSudoku();
             Console.Read();
         }
