@@ -28,12 +28,15 @@ namespace SolverNeuralNet
 			var sudokus = DataSetHelper.ParseCSV(strPathCSV, nbSudokus);
 
 			var testSudoku = sudokus[0];
-			Console.Write($"Sudoku to solve:\n{testSudoku.Quiz.ToString()}" );
-			Console.Write($"Given Solution :\n{testSudoku.Solution.ToString()}");
+			Console.Write($"Sudoku to solve:" );
+			testSudoku.Quiz.showInitialSudoku();
+			Console.Write($"Given Solution :");
+			testSudoku.Solution.showInitialSudoku();
 			var preTrainedModel = NeuralNetHelper.LoadModel(strPathModel);
 
 			var solvedWithNeuralNet = NeuralNetHelper.SolveSudoku(testSudoku.Quiz, preTrainedModel);
-			Console.Write($"Solved with Neural Net :\n{solvedWithNeuralNet.ToString()}");
+			Console.Write($"Solved with Neural Net :");
+			solvedWithNeuralNet.showTwoSudoku();
 
 
 			Console.WriteLine($"Time Elpased: {stopW.Elapsed.Humanize(5)}");

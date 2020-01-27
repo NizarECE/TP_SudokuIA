@@ -20,7 +20,7 @@ namespace SolverNeuralNet
 		private static BaseModel model = NeuralNetHelper.LoadModel(modelPath);
 
 
-		public Sudoku.Core.Sudoku Solve(Sudoku..Sudoku s)
+		public Sudoku Solve(Sudoku s)
 		{
 			return NeuralNetHelper.SolveSudoku(s, model);
 		}
@@ -29,9 +29,9 @@ namespace SolverNeuralNet
 
 	public class SudokuSample
 	{
-		public Sudoku.Core.Sudoku Quiz { get; set; }
+		public Sudoku Quiz { get; set; }
 
-		public Sudoku.Core.Sudoku Solution { get; set; }
+		public Sudoku Solution { get; set; }
 
 	}
 
@@ -49,14 +49,17 @@ namespace SolverNeuralNet
 			return BaseModel.LoadModel(strpath);
 		}
 
-		public static NDarray GetFeatures(Sudoku.Core.Sudoku objSudoku)
+		public static NDarray GetFeatures(Sudoku objSudoku)
 		{
-			return Normalize(np.array(objSudoku.Cells.ToArray()).reshape(9, 9));
+			return Normalize(np.array(objSudoku.getInitialSudoku().To2D()));
 		}
 
-		public static Sudoku.Core.Sudoku GetSudoku(NDarray features)
+		public static Sudoku GetSudoku(NDarray features)
 		{
-			return new Sudoku.Core.Sudoku() { Cells = features.flatten().astype(np.int32).GetData<int>().ToList() };
+			//var cells = features.flatten().astype(np.int32).GetData<int>().ToList();
+			var multiDimArray = Sudoku.Rows.Select(i => features[$"{i},:"].astype(np.int32).GetData<int>()).ToArray();
+			var toReturn = new Sudoku(multiDimArray);
+			return toReturn; //
 		}
 
 		public static NDarray Normalize(NDarray features)
@@ -71,7 +74,7 @@ namespace SolverNeuralNet
 
 
 
-		public static Sudoku.Core.Sudoku SolveSudoku(Sudoku.Core.Sudoku s, BaseModel model)
+		public static Sudoku SolveSudoku(Sudoku s, BaseModel model)
 		{
 			var features = GetFeatures(s);
 			while (true)
@@ -124,8 +127,8 @@ namespace SolverNeuralNet
 				{
 					var record = new SudokuSample
 					{
-						Quiz = NoyauTP.Sudoku.Parse(csv.GetField<string>("quizzes")),
-						Solution = Sudoku.Core.Sudoku.Parse(csv.GetField<string>("solutions"))
+						Quiz = new Sudoku(csv.GetField<string>("quizzes")),
+						Solution = new Sudoku(csv.GetField<string>("solutions"))
 					};
 					records.Add(record);
 					currentNb++;
