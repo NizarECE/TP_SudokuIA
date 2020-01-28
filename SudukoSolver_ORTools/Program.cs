@@ -1,5 +1,6 @@
 ﻿using System;
 using NoyauTP;
+using SudokuSolver_ORTools;
 
 namespace SudukoSolver_ORTools
 {
@@ -7,9 +8,13 @@ namespace SudukoSolver_ORTools
     {
         static void Main(string[] args)
         {
-            var s = new Sudoku();
-            s.showSudoku();
-            Console.Write("Le sudoku a été généré");
+            Sudoku s = new Sudoku();
+            s.newEasySudoku(-1);
+            s.showInitialSudoku();
+            String sudoku_string = s.sudokuToString(s.getInitialSudoku());
+            String sudoku_resolu_string = Solver_ORTools.Exe(sudoku_string);
+            int[][] sudoku_resolu = s.stringToSudoku(sudoku_resolu_string);
+            s.show(sudoku_resolu);
             Console.Read();
         }
     }

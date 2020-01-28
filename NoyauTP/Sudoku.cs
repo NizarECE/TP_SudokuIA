@@ -31,9 +31,9 @@ namespace NoyauTP
 
         /*--------------------Getter & Setter--------------------*/
 
-        public int[][] getInitialSudoku(int[][] sudoku)  //récupèrele sudoku initiale
+        public int[][] getInitialSudoku()  //récupèrele sudoku initiale
         {
-            sudoku = new int[9][];
+            var sudoku = new int[9][];
             for (int i = 0; i < 9; i++)
             {
                 sudoku[i] = new int[9];
@@ -49,8 +49,8 @@ namespace NoyauTP
         {
             return initialSudoku[line][column];
         }
-
-        public int[][] getSudoku(int[][] sudoku)  //récupèrele sudoku de "travail"
+        
+        public int[][] getSudoku(int[][] sudoku)  //récupère le sudoku de "travail"
         {
             sudoku = new int[9][];
             for (int i = 0; i < 9; i++)
