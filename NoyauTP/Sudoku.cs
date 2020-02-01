@@ -40,9 +40,16 @@ namespace NoyauTP
             cells = new List<int>(enumerable);
         }
 
-        /*--------------------Getter & Setter--------------------*/
+		/*--------------------Getter & Setter--------------------*/
 
-        public int[][] getInitialSudoku(int[][] sudoku)  //récupèrele sudoku initiale
+		public int[][] getInitialSudoku()  //récupèrele sudoku initiale
+		{
+			var sudoku = new int[9][];
+			return getInitialSudoku(sudoku);
+		}
+
+
+		public int[][] getInitialSudoku(int[][] sudoku)  //récupèrele sudoku initiale
         {
             sudoku = new int[9][];
             for (int i = 0; i < 9; i++)

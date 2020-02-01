@@ -11,8 +11,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="IKVM" Version="8.1.5717" />
     <PackageReference Include="Java" Version="1.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="aima-core">
@@ -51,5 +51,8 @@
     <Reference Include="IKVM.Runtime">
       <HintPath>..\..\..\Downloads\AIMA-IKVM\IKVM\IKVM.Runtime.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="external\" />
   </ItemGroup>
 </Project>
