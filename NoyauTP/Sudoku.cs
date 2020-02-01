@@ -3,15 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 
 namespace NoyauTP
 {
     public class Sudoku
     {
-
-	    public static List<int> Rows = Enumerable.Range(0, 9).ToList();
-
         private int[][] initialSudoku;  //Sudoku original et vide (ne peut être modifié)
         private int[][] workingSudoku;  //Sudoku sur lequel vous allez travailler 
 
@@ -33,69 +31,79 @@ namespace NoyauTP
             workingSudoku = stringToSudoku(init);
         }
 
-
-        public Sudoku(string s):this()
+        public Sudoku(string s) : this()
         {
-			newSudoku(s);
+            newSudoku(s);
         }
 
         public Sudoku(int[][] s) : this()
         {
-	        initialSudoku = s;
-	        setSudoku(s);
+            initialSudoku = s;
+            setSudoku(s);
+        }
+
+        public Sudoku(IEnumerable<int> cells)
+        {
+            var enumerable = cells.ToList();
+            if (enumerable.Count != 81)
+            {
+                throw new ArgumentException("Sudoku should have exactly 81 cells", nameof(cells));
+            }
+            cells = new List<int>(enumerable);
         }
 
 
-		/*--------------------Getter & Setter--------------------*/
 
-		public int[][] getInitialSudoku()  //récupèrele sudoku initiale
-        {
+        public static List<int> Rows = Enumerable.Range(0, 9).ToList();
+        public IList<int> Cells => getSudoku().SelectMany(r => r).ToList();
+
+        /*--------------------Getter & Setter--------------------*/
+
+        public int[][] getInitialSudoku()  //récupèrele sudoku initiale
+		{
 			var sudoku = new int[9][];
-			for (int i = 0; i < 9; i++)
-			{
-				sudoku[i] = new int[9];
-				for (int j = 0; j < 9; j++)
-				{
-					sudoku[i][j] = initialSudoku[i][j];
-				}
-			}
-			return sudoku;
+			return getInitialSudoku(sudoku);
 		}
 
-		public IList<int> Cells => getSudoku().SelectMany(r => r).ToList();
 
-
-		[Obsolete("use new overload")]
-        public int[][] getInitialSudoku(int[][] sudoku)  //récupèrele sudoku initiale
+		public int[][] getInitialSudoku(int[][] sudoku)  //récupèrele sudoku initiale
         {
-	        return getInitialSudoku();
+            sudoku = new int[9][];
+            for (int i = 0; i < 9; i++)
+            {
+                sudoku[i] = new int[9];
+                for (int j = 0; j < 9; j++)
+                {
+                    sudoku[i][j] = initialSudoku[i][j];
+                }
+            }
+            return sudoku;
         }
 
-		public int getCaseInitialSudoku(int line, int column)  //récupère une case du sudoku initiale
+        public int getCaseInitialSudoku(int line, int column)  //récupèreune case du sudoku initiale
         {
             return initialSudoku[line][column];
         }
 
+        public int[][] getSudoku()
+        {
+            int[][] s = workingSudoku;
+            return getSudoku(s);
+        }
 
-		public int[][] getSudoku()
-		{
-			var sudoku = new int[9][];
-			for (int i = 0; i < 9; i++)
-			{
-				sudoku[i] = new int[9];
-				for (int j = 0; j < 9; j++)
-				{
-					sudoku[i][j] = workingSudoku[i][j];
-				}
-			}
-			return sudoku;
-		}
-
-		[Obsolete("use other overload")]
-		public int[][] getSudoku(int[][] sudoku)  //récupèrele sudoku de "travail"
-		{
-			return getSudoku();
-		}
+        public int[][] getSudoku(int[][] sudoku)  //récupèrele sudoku de "travail"
+        {
+            sudoku = new int[9][];
+            for (int i = 0; i < 9; i++)
+            {
+                sudoku[i] = new int[9];
+                for (int j = 0; j < 9; j++)
+                {
+                    sudoku[i][j] = workingSudoku[i][j];
+                }
+            }
+            return sudoku;
+        }
         public int getCaseSudoku(int line, int column)  //récupère une case du sudoku de "travail"
         {
             return workingSudoku[line][column];
@@ -422,7 +430,7 @@ namespace NoyauTP
 
         /*--------------------Outils--------------------*/
 
-        public static int[][] stringToSudoku(String stringSudoku)  //Transforme un String en sudoku (tableau de int[9][9])
+        public int[][] stringToSudoku(String stringSudoku)  //Transforme un String en sudoku (tableau de int[9][9])
         {
             if (stringSudoku.Length != 81)
             {
