@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using NoyauTP;
 
 namespace Liensdansants
@@ -7,17 +8,18 @@ namespace Liensdansants
     {
         static void Main(string[] args)
         {
-            var s = new Sudoku();
-           
-            s.newEasySudoku(0);
+            var lignes = File.ReadAllLines(@"..\..\..\Sudoku_Easy50.txt");
+            var sudokus = Sudoku.ParseMulti(lignes);
             var solveur = new SolveurLiensDansants();
-            var solution = solveur.Solve(s);
-            solution.showSudoku();
+            var sudokuAResoudre = sudokus[1];
+            Console.WriteLine(sudokuAResoudre);
+            var solution1 = solveur.ResoudreSudoku(sudokuAResoudre);
+            Console.WriteLine(solution1);
             Console.Read();
 
-           
+
         }
     }
 
-    
+
 }
