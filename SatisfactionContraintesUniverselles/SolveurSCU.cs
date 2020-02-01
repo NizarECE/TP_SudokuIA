@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using aima.core.search.csp;
 using NoyauTP;
@@ -22,14 +23,19 @@ namespace SatisfactionContraintesUniverselles
 
 			var objStrategyInfo = new CSPStrategyInfo();
 			objStrategyInfo.EnableLCV = true;
-			objStrategyInfo.Inference = CSPInference.AC3;
-			objStrategyInfo.Selection = CSPSelection.MRV;
+			objStrategyInfo.Inference = CSPInference.ForwardChecking;
+			objStrategyInfo.Selection = CSPSelection.MRVDeg;
 			objStrategyInfo.StrategyType = CSPStrategy.ImprovedBacktrackingStrategy;
 			objStrategyInfo.MaxSteps = 5000;
 			var objStrategy = objStrategyInfo.GetStrategy();
 
+
+
 			// Résolution du Sudoku
+            var objChrono = Stopwatch.StartNew();
 			var assignation = objStrategy.solve(objCSP);
+            Console.WriteLine($"Pure solve Time : {objChrono.Elapsed.TotalMilliseconds} ms");
+
 
 			//Traduction du Sudoku
 			SudokuCSPHelper.SetValuesFromAssignment(assignation, s);

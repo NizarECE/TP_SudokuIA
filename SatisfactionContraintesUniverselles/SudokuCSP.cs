@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using aima.core.search.csp;
+using aima.core.search.csp.examples;
 using java.lang;
 using java.util;
 using Newtonsoft.Json;
@@ -60,7 +61,9 @@ namespace SatisfactionContraintesUniverselles
 			{
 				if (objVar.getName() == currentVarName)
 				{
-					toReturn.addConstraint(new ValueConstraint(objVar, mask[currentMaskIdx]));
+					//toReturn.addConstraint(new ValueConstraint(objVar, mask[currentMaskIdx]));
+                    var cellValue = mask[currentMaskIdx];
+					toReturn.setDomain(objVar, new Domain(new object[]{ cellValue }));
 					if (maskQueue.Count == 0)
 					{
 						break;
@@ -136,8 +139,13 @@ namespace SatisfactionContraintesUniverselles
 						foreach (var objPair in variables)
 						{
 							var ligneVars = objPair.Value.Values.ToList();
+
 							var ligneContraintes = SudokuCSPHelper.GetAllDiffConstraints(ligneVars);
 							contraints.AddRange(ligneContraintes);
+							//var objContrainte = new AllDiffConstraint<int>(ligneVars);
+							//toReturn.addConstraint(objContrainte);
+
+
 						}
 
 						//colonnes
@@ -147,6 +155,9 @@ namespace SatisfactionContraintesUniverselles
 							var colVars = variables.Values.SelectMany(x => { return new Variable[] { x[jClosure] }; }).ToList();
 							var colContraintes = SudokuCSPHelper.GetAllDiffConstraints(colVars);
 							contraints.AddRange(colContraintes);
+							//var objContrainte = new AllDiffConstraint<int>(colVars);
+							//                     toReturn.addConstraint(objContrainte);
+
 						}
 
 						//Boites
@@ -154,8 +165,8 @@ namespace SatisfactionContraintesUniverselles
 						for (int b = 0; b < 9; b++)
 						{
 							var boiteVars = new List<Variable>();
-							var iStart = b / 3;
-							var jStart = b % 3;
+							var iStart = 3 * (b / 3);
+							var jStart = 3 * (b % 3);
 							for (int i = 0; i < 3; i++)
 							{
 								for (int j = 0; j < 3; j++)
@@ -165,6 +176,9 @@ namespace SatisfactionContraintesUniverselles
 							}
 							var boitesContraintes = SudokuCSPHelper.GetAllDiffConstraints(boiteVars);
 							contraints.AddRange(boitesContraintes);
+
+							//var objContrainte = new AllDiffConstraint<int>(boiteVars);
+							//toReturn.addConstraint(objContrainte);
 						}
 
 
@@ -174,25 +188,26 @@ namespace SatisfactionContraintesUniverselles
 							toReturn.addConstraint(constraint);
 						}
 
+						//return toReturn;
 						_BaseSudokuCSP = toReturn;
 					}
 
 				}
 			}
 
-			return (CSP)_BaseSudokuCSP;//.Clone();
+			return (CSP)_BaseSudokuCSP.Clone();
 		}
 
 
 
 		private static Regex _NameRegex =
-			new Regex(@"cell(\d)(\d)", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+			new Regex(@"cell(?<row>\d)(?<col>\d)", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
 	    private static void GetIndices(Variable obVariable, ref int rowIdx, ref int colIdx)
 	    {
 		    var objMatch = _NameRegex.Match(obVariable.getName());
-		    rowIdx = int.Parse(objMatch.Groups[0].Value, CultureInfo.InvariantCulture);
-		    colIdx = int.Parse(objMatch.Groups[1].Value, CultureInfo.InvariantCulture);
+		    rowIdx = int.Parse(objMatch.Groups["row"].Value, CultureInfo.InvariantCulture);
+		    colIdx = int.Parse(objMatch.Groups["col"].Value, CultureInfo.InvariantCulture);
 		}
 
 	    private static string GetVarName(int rowIndex, int colIndex)
@@ -204,17 +219,17 @@ namespace SatisfactionContraintesUniverselles
 	    private static object _BaseSudokuCSPLock = new object();
 		private static DynamicCSP _BaseSudokuCSP;
 
-		
+
 
 		public static IEnumerable<Constraint> GetAllDiffConstraints(IList<Variable> vars)
 		{
 			var toReturn = new List<Constraint>();
 			for (int i = 0; i < vars.Count; i++)
 			{
-				for (int j = i+1; j < vars.Count; j++)
+				for (int j = i + 1; j < vars.Count; j++)
 				{
 					var diffContraint =
-						new aima.core.search.csp.NotEqualConstraint(vars[i],
+						new NotEqualConstraint(vars[i],
 							vars[j]);
 					toReturn.Add(diffContraint);
 				}
@@ -224,7 +239,7 @@ namespace SatisfactionContraintesUniverselles
 		}
 
 
-		
+
 	}
 
 
@@ -245,7 +260,7 @@ namespace SatisfactionContraintesUniverselles
 			foreach (Variable variable in this.getVariables().toArray())
 			{
 				toReturn.addVariable(variable);
-				toReturn.setDomain(variable, this.getDomain(variable));
+				toReturn.setDomain(variable, new Domain(this.getDomain(variable).asList()));
 			}
 
 			foreach (Constraint constraint in this.getConstraints().toArray())
@@ -258,37 +273,80 @@ namespace SatisfactionContraintesUniverselles
 	}
 
 
-	// Contrainte en valeur pour le masque
-	public class ValueConstraint : Constraint
-	{
+	//Contrainte AllDiff
 
-		public Variable Var1 { get; set; }
+	//public class AllDiffConstraint<TDomain> : Constraint
+	//{
 
-		public object Value { get; set; }
-
-		private java.util.List _Scope;
-
-		public ValueConstraint(Variable objVar1, object objValue)
-		{
-			Var1 = objVar1;
-			Value = objValue;
-			_Scope = new java.util.ArrayList(1);
-			_Scope.add(Var1);
-		}
-
-		public java.util.List getScope()
-		{
-			return _Scope;
-		}
-
-		public bool isSatisfiedWith(Assignment a)
-		{
-			return a.getAssignment(Var1) == Value;
-		}
-	}
+	//	public List<Variable> Variables  { get; set; }
 
 
-	public enum CSPStrategy
+	//	private java.util.List _Scope;
+
+	//	public AllDiffConstraint(IEnumerable<Variable> objVars)
+	//	{
+	//		Variables = new List<Variable>(objVars);
+	//		_Scope = new java.util.ArrayList(Variables.Count);
+	//		Variables.ForEach(objVar => _Scope.add(objVar));
+	//	}
+
+ //       public java.util.List getScope()
+ //       {
+ //           return _Scope;
+ //       }
+
+ //       public bool isSatisfiedWith(Assignment a)
+ //       {
+ //           var objHashSet = new System.Collections.Generic.HashSet<TDomain>();
+ //           foreach (var objVar in Variables)
+ //           {
+ //               var objValue = (TDomain)a.getAssignment(objVar);
+ //               if (objHashSet.Contains(objValue))
+ //               {
+ //                   return false;
+ //               }
+
+ //               objHashSet.Add(objValue);
+ //           }
+
+ //           return true;
+ //       }
+ //   }
+
+
+
+
+    // Contrainte en valeur pour le masque
+    //public class ValueConstraint : Constraint
+    //{
+
+    //	public Variable Var1 { get; set; }
+
+    //	public object Value { get; set; }
+
+    //	private java.util.List _Scope;
+
+    //	public ValueConstraint(Variable objVar1, object objValue)
+    //	{
+    //		Var1 = objVar1;
+    //		Value = objValue;
+    //		_Scope = new java.util.ArrayList(1);
+    //		_Scope.add(Var1);
+    //	}
+
+    //	public java.util.List getScope()
+    //	{
+    //		return _Scope;
+    //	}
+
+    //	public bool isSatisfiedWith(Assignment a)
+    //	{
+    //		return a.getAssignment(Var1) == Value;
+    //	}
+    //}
+
+
+    public enum CSPStrategy
 	{
 		BacktrackingStrategy,
 		ImprovedBacktrackingStrategy,
