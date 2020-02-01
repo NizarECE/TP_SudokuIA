@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 
 
 namespace NoyauTP
@@ -27,6 +29,15 @@ namespace NoyauTP
 
             initialSudoku = stringToSudoku(init);
             workingSudoku = stringToSudoku(init);
+        }
+        public Sudoku(IEnumerable<int> cells)
+        {
+            var enumerable = cells.ToList();
+            if (enumerable.Count != 81)
+            {
+                throw new ArgumentException("Sudoku should have exactly 81 cells", nameof(cells));
+            }
+            cells = new List<int>(enumerable);
         }
 
         /*--------------------Getter & Setter--------------------*/
