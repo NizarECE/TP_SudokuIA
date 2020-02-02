@@ -39,12 +39,13 @@ namespace SolverNeuralNet
 	{
 
 		static NeuralNetHelper()
-		{
-			//PythonEngine.PythonHome = @"C:\ProgramData\Anaconda3\envs\python3610";
-			string path = @"C:\ProgramData\Anaconda3\envs\python3610;" + Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
+        {
+            var distributionPath = @"C:\ProgramData\Anaconda3"; // @"C:\ProgramData\Anaconda3\envs\python3610";
+            PythonEngine.PythonHome = distributionPath;
+			string path = $@"{distributionPath};" + Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
 			Environment.SetEnvironmentVariable("PATH", path, EnvironmentVariableTarget.Process);
-			Environment.SetEnvironmentVariable("PYTHONHOME", @"C:\ProgramData\Anaconda3\envs\python3610", EnvironmentVariableTarget.Process);
-			Environment.SetEnvironmentVariable("PYTHONPATH", @"C:\ProgramData\Anaconda3\envs\python3610\Lib", EnvironmentVariableTarget.Process);
+			Environment.SetEnvironmentVariable("PYTHONHOME", distributionPath, EnvironmentVariableTarget.Process);
+			Environment.SetEnvironmentVariable("PYTHONPATH", $@"{distributionPath}\Lib", EnvironmentVariableTarget.Process);
 			//Py_SetPath(L"C:/Work/build/product/Lib/site-packages");
 			Setup.UseTfKeras();
 		}
