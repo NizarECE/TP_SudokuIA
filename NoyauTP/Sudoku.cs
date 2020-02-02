@@ -99,16 +99,6 @@ namespace NoyauTP
 
         public void newEasySudoku(int index)  //Attribue un nouveau Sudoku facile
         {
-            newSudoku(getLine("Sudoku_Easy50.txt", index));
-        }
-
-        public void newHardSudoku(int index)  //Attribue un nouveau Sudoku hard
-        {
-            newSudoku(getLine("Sudoku_hardest.txt", index));
-        }
-
-        public void newTop95Sudoku(int index)  //Attribue un nouveau Sudoku du top 95
-        {
             newSudoku(getLine("Sudoku_Top95.txt", index));
         }
 

@@ -9,11 +9,8 @@ namespace Norvig_method
         {
             var s = new Sudoku();
             s.newEasySudoku(0);
-            Console.WriteLine(s.getLine);
-            Console.Read();
-            var solveur = new Norvig();
+            var solveur = new Methode();
             var solution = solveur.Solve(s);
-            solution.showSudoku();
             Console.Read();
         }
     }
