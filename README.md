@@ -34,5 +34,23 @@ afin de pouvoir commencer le jeu.
 
 De plus, un chiffre ne doit jamais se répéter au sein d'un même carré, d'une même ligne et d'une même colonne de la grille.
 
+Pour lancer SolveurNeuralNet, tout se fait par des commandes
+1) créer un environnement en python 3.6 sur Anaconda avec la commande : (terminal MacOS ou prompt Anaconda) 
+conda create -n nomenvironnement python=3.6
+
+2) activer l'environnement
+conda activate nomenvironnement
+
+3) installer les bibliothèques keras et keras-gpu
+conda install keras
+conda install keras-gpu
+
+4) installer Cuda et cudnn
+conda install cudatoolkit
+conda install cudnn
+
+(Trouvez le fichier cudart64_100.dll et placez le dans le dossier nomenvironnement directement)
+
+5) Changez le chemin de distribution dans le fichier "SolveurNeuralNet.cs", ligne 44 dans le "distributionPath" par le chemin qui mène à l'environnement que vous avez crée.
 
 
