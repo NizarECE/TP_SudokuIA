@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NoyauTP;
 using System.Collections.Immutable;
+using System.Globalization;
 using System.Linq;
 using DlxLib;
 
@@ -19,13 +20,13 @@ namespace Liensdansants
                 var sb = new StringBuilder();
                 for (int j = 0; j < 9; j++)
                 {
-                    if (s.Cells[i * 9 + j] == 0)
+                    if (s.getCaseSudoku(i, j) == 0)
                     {
                         sb.Append(" ");
                     }
                     else
                     {
-                        sb.Append(s.Cells[i * 9 + j]);
+                        sb.Append(s.getCaseSudoku(i, j).ToString(CultureInfo.InvariantCulture));
                     }
                 }
                 lignesListe.Add(sb.ToString());
@@ -37,56 +38,40 @@ namespace Liensdansants
         }
 
 
-        public Sudoku ResoudreSudoku(Sudoku s)
+        public Sudoku Solve(Sudoku s)
         {
-            var internalRows = BuildInternalRowsForGrid(s);
+            var currentGrid = SudokuVersGrid(s);
+            var internalRows = BuildInternalRowsForGrid(currentGrid);
             var dlxRows = BuildDlxRows(internalRows);
-            ImmutableList<Solution> solutions = NewMethod(internalRows, dlxRows);
-
-            Console.WriteLine();
-
-            if (solutions.Any())
-            {
-                Console.WriteLine($"First solution (of {solutions.Count}):");
-                Console.WriteLine();
-                DrawSolution(internalRows, solutions.First());
-                Console.WriteLine();
-            }
-            else
-            {
-                Console.WriteLine("No solutions found!");
-            }
-            Console.Read();
-            return s;
-        }
-
-        private ImmutableList<Solution> NewMethod(object internalRows, object dlxRows)
-        {
-            return new Dlx()
+            ImmutableList<Solution> solutions = new Dlx()
                 .Solve(dlxRows, d => d, r => r)
                 .Where(solution => VerifySolution(internalRows, solution))
                 .ToImmutableList();
+
+            if (!solutions.Any())
+            {
+                return s;
+            }
+
+            var gridSolution = SolutionToGrid(internalRows, solutions[0]);
+            GridVersSudoku(gridSolution, ref s);
+
+            return s;
         }
 
-        private void DrawSolution(object internalRows, Solution solution)
+        
+
+        public static void GridVersSudoku(Grid g, ref Sudoku s)
         {
-            throw new NotImplementedException();
+            for (int rowIndex = 0; rowIndex < 9; rowIndex++)
+            {
+                for (int coIndex = 0; coIndex < 9; coIndex++)
+                {
+                    s.setCaseSudoku(rowIndex, coIndex, g.ValueAt(rowIndex , coIndex));
+                }
+            }
         }
 
-        private bool VerifySolution(object internalRows, Solution solution)
-        {
-            throw new NotImplementedException();
-        }
-
-        private object BuildDlxRows(object internalRows)
-        {
-            throw new NotImplementedException();
-        }
-
-        private object BuildInternalRowsForGrid(Sudoku s)
-        {
-            throw new NotImplementedException();
-        }
 
         private static IEnumerable<int> Rows => Enumerable.Range(0, 9);
         private static IEnumerable<int> Cols => Enumerable.Range(0, 9);

@@ -6,7 +6,7 @@ namespace NoyauTP
 {
     public interface ISudokuSolver
     {
-        Sudoku ResoudreSudoku(Sudoku s);
+        Sudoku Solve(Sudoku s);
 
     }
 }

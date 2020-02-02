@@ -13,6 +13,8 @@ namespace Liensdansants
         private const char ZeroCharacter = '0';
         private static readonly char[] ValidChars = { SpaceCharacter, '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         private readonly IImmutableList<IImmutableList<int>> _rows;
+
+        
         public Grid(IImmutableList<string> rowStrings)
         {
             if (rowStrings == null) throw new ArgumentNullException(nameof(rowStrings));
@@ -24,7 +26,7 @@ namespace Liensdansants
                 if (rowString.Length != 9) throw new ArgumentException(nameof(rowStrings));
                 foreach (var ch in rowString)
                 {
-                    if (!ValidChars.Contains(ch)) throw new ArgumentException(nameof(rowStrings));
+                    //if (!ValidChars.Contains(ch)) throw new ArgumentException(nameof(rowStrings));
                     row.Add(ch == SpaceCharacter ? 0 : ch - ZeroCharacter);
                 }
                 rows.Add(row.ToImmutableList());

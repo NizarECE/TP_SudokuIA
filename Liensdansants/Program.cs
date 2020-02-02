@@ -8,13 +8,13 @@ namespace Liensdansants
     {
         static void Main(string[] args)
         {
-            var lignes = File.ReadAllLines(@"..\..\..\Sudoku_Easy50.txt");
-            var sudokus = Sudoku.ParseMulti(lignes);
+            var s = new Sudoku();
+            s.newEasySudoku(0);
+            s.showSudoku();
             var solveur = new SolveurLiensDansants();
-            var sudokuAResoudre = sudokus[1];
-            Console.WriteLine(sudokuAResoudre);
-            var solution1 = solveur.ResoudreSudoku(sudokuAResoudre);
-            Console.WriteLine(solution1);
+            
+            var solution1 = solveur.Solve(s);
+            solution1.showSudoku();
             Console.Read();
 
 
