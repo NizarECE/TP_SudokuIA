@@ -28,15 +28,42 @@ namespace SolverNeuralNet
 			var sudokus = DataSetHelper.ParseCSV(strPathCSV, nbSudokus);
 
 			var testSudoku = sudokus[0];
-			Console.Write($"Sudoku to solve:" );
-			testSudoku.Quiz.showInitialSudoku();
-			Console.Write($"Given Solution :");
-			testSudoku.Solution.showInitialSudoku();
-			var preTrainedModel = NeuralNetHelper.LoadModel(strPathModel);
 
-			var solvedWithNeuralNet = NeuralNetHelper.SolveSudoku(testSudoku.Quiz, preTrainedModel);
+			//testSudoku.Quiz.showInitialSudoku();
+			//Console.Write($"Given Solution :");
+			//testSudoku.Solution.showInitialSudoku();
+			var rand = new Random();
+			var preTrainedModel = NeuralNetHelper.LoadModel(strPathModel);
+			NoyauTP.Sudoku sudokuzzz = new NoyauTP.Sudoku();
+			NoyauTP.Sudoku sudokuzz = new NoyauTP.Sudoku();
+			NoyauTP.Sudoku sudokuz = new NoyauTP.Sudoku();
+			sudokuzzz.newEasySudoku(rand.Next(90));
+			sudokuzz.newHardSudoku(rand.Next(100));
+			sudokuz.newTop95Sudoku(rand.Next(82));
+			Console.Write($"Sudoku facile");
+			
+			//var solvedWithNeuralNet = NeuralNetHelper.SolveSudoku(testSudoku.Quiz, preTrainedModel);
+			var solvedWithNeuralNet_easy = NeuralNetHelper.SolveSudoku(sudokuzzz, preTrainedModel);
+			var solvedWithNeuralNet_medium = NeuralNetHelper.SolveSudoku(sudokuzz, preTrainedModel);
+			var solvedWithNeuralNet_hard = NeuralNetHelper.SolveSudoku(sudokuz, preTrainedModel);
+
+
+			Console.Write($"Sudoku easy to solve:");
+			sudokuzzz.showSudoku();
 			Console.Write($"Solved with Neural Net :");
-			solvedWithNeuralNet.showTwoSudoku();
+
+
+			solvedWithNeuralNet_easy.showSudoku();
+			Console.Write($"Sudoku medium to solve:");
+			sudokuzz.showSudoku();
+			Console.Write($"Solved with Neural Net :");
+			solvedWithNeuralNet_medium.showSudoku();
+
+
+			Console.Write($"Sudoku hard to solve:");
+			sudokuz.showSudoku();
+			Console.Write($"Solved with Neural Net :");
+			solvedWithNeuralNet_hard.showSudoku();
 
 
 			Console.WriteLine($"Time Elpased: {stopW.Elapsed.Humanize(5)}");
