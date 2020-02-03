@@ -41,6 +41,8 @@ namespace Benchmark
 
                 Console.WriteLine("\n\n                Saisie invalide\n\n");
 
+                Console.WriteLine(e.ToString());
+
             }
 
 

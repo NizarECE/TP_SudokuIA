@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solver_algo_genetic", "Solv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolverNeuralNet", "SolverNeuralNet\SolverNeuralNet.csproj", "{790EC9C3-42A0-42A7-8968-2160B38B8B69}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SatisfactionContraintesUniverselles", "SatisfactionContraintesUniverselles\SatisfactionContraintesUniverselles.csproj", "{AE8FB6A3-37EB-4A4F-8BD6-72B8DB5621CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{790EC9C3-42A0-42A7-8968-2160B38B8B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{790EC9C3-42A0-42A7-8968-2160B38B8B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{790EC9C3-42A0-42A7-8968-2160B38B8B69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE8FB6A3-37EB-4A4F-8BD6-72B8DB5621CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE8FB6A3-37EB-4A4F-8BD6-72B8DB5621CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE8FB6A3-37EB-4A4F-8BD6-72B8DB5621CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE8FB6A3-37EB-4A4F-8BD6-72B8DB5621CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

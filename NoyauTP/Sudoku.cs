@@ -30,6 +30,18 @@ namespace NoyauTP
             initialSudoku = stringToSudoku(init);
             workingSudoku = stringToSudoku(init);
         }
+
+        public Sudoku(string s) : this()
+        {
+            newSudoku(s);
+        }
+
+        public Sudoku(int[][] s) : this()
+        {
+            initialSudoku = s;
+            setSudoku(s);
+        }
+
         public Sudoku(IEnumerable<int> cells)
         {
             var enumerable = cells.ToList();
@@ -40,9 +52,21 @@ namespace NoyauTP
             cells = new List<int>(enumerable);
         }
 
+
+
+        public static List<int> Rows = Enumerable.Range(0, 9).ToList();
+        public IList<int> Cells => getSudoku().SelectMany(r => r).ToList();
+
         /*--------------------Getter & Setter--------------------*/
 
-        public int[][] getInitialSudoku(int[][] sudoku)  //récupèrele sudoku initiale
+        public int[][] getInitialSudoku()  //récupèrele sudoku initiale
+		{
+			var sudoku = new int[9][];
+			return getInitialSudoku(sudoku);
+		}
+
+
+		public int[][] getInitialSudoku(int[][] sudoku)  //récupèrele sudoku initiale
         {
             sudoku = new int[9][];
             for (int i = 0; i < 9; i++)
@@ -59,6 +83,12 @@ namespace NoyauTP
         public int getCaseInitialSudoku(int line, int column)  //récupèreune case du sudoku initiale
         {
             return initialSudoku[line][column];
+        }
+
+        public int[][] getSudoku()
+        {
+            int[][] s = workingSudoku;
+            return getSudoku(s);
         }
 
         public int[][] getSudoku(int[][] sudoku)  //récupèrele sudoku de "travail"
