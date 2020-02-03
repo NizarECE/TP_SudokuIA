@@ -27,22 +27,26 @@ namespace SolverNeuralNet
 			
 			var sudokus = DataSetHelper.ParseCSV(strPathCSV, nbSudokus);
 
-			var testSudoku = sudokus[0];
+			//var testSudoku = sudokus[0];
 
 			//testSudoku.Quiz.showInitialSudoku();
 			//Console.Write($"Given Solution :");
 			//testSudoku.Solution.showInitialSudoku();
 			var rand = new Random();
 			var preTrainedModel = NeuralNetHelper.LoadModel(strPathModel);
+
+			// Attribution des sudokus par niveau aléatoire
 			NoyauTP.Sudoku sudokuzzz = new NoyauTP.Sudoku();
 			NoyauTP.Sudoku sudokuzz = new NoyauTP.Sudoku();
 			NoyauTP.Sudoku sudokuz = new NoyauTP.Sudoku();
 			sudokuzzz.newEasySudoku(rand.Next(90));
 			sudokuzz.newHardSudoku(rand.Next(100));
 			sudokuz.newTop95Sudoku(rand.Next(82));
-			Console.Write($"Sudoku facile");
+			//Console.Write($"Sudoku facile");
 			
 			//var solvedWithNeuralNet = NeuralNetHelper.SolveSudoku(testSudoku.Quiz, preTrainedModel);
+
+			// Résolution avec la fonction SolveSudoku en prenant le modele préentrainé 
 			var solvedWithNeuralNet_easy = NeuralNetHelper.SolveSudoku(sudokuzzz, preTrainedModel);
 			var solvedWithNeuralNet_medium = NeuralNetHelper.SolveSudoku(sudokuzz, preTrainedModel);
 			var solvedWithNeuralNet_hard = NeuralNetHelper.SolveSudoku(sudokuz, preTrainedModel);

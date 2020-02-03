@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
+//Environment
 using CsvHelper;
 using Keras;
 using Keras.Models;
@@ -40,16 +41,13 @@ namespace SolverNeuralNet
 
 		static NeuralNetHelper()
         {
-            var distributionPath = @"C:\ProgramData\Anaconda3\envs\python3610"; // @"C:\ProgramData\Anaconda3\envs\python3610";
+            var distributionPath = @"C:\ProgramData\Anaconda3\envs\solver"; // mettre votre chemin vers votre python 3.6;
             
 			string path = $@"{distributionPath};" + Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
 			Environment.SetEnvironmentVariable("PATH", path, EnvironmentVariableTarget.Process);
 			Environment.SetEnvironmentVariable("PYTHONHOME", distributionPath, EnvironmentVariableTarget.Process);
 			Environment.SetEnvironmentVariable("PYTHONPATH", $@"{distributionPath}\Lib", EnvironmentVariableTarget.Process);
-			//Py_SetPath(L"C:/Work/build/product/Lib/site-packages");
 			PythonEngine.PythonHome = distributionPath;
-			//var path = $"{Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine)};{distributionPath}";
-			//Environment.SetEnvironmentVariable("Path", path, EnvironmentVariableTarget.Process);
 			Setup.UseTfKeras();
 		}
 
@@ -86,6 +84,11 @@ namespace SolverNeuralNet
 		public static Sudoku SolveSudoku(Sudoku s, BaseModel model)
 		{
 			var features = GetFeatures(s);
+
+			// boucle de résolution de sudoku case par case
+		    // en remplissant la case avec la plus forte probabilité 
+			// et reprédit le model 
+
 			while (true)
 			{
 				var output = model.Predict(features.reshape(1, 9, 9, 1));
